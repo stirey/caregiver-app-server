@@ -8,8 +8,8 @@ const validateSession = require('../middleware/validate-session');
 const Patient = require('../db').import('../models/patient')
 
 /*********************
-****Patient Create****
-***********************/
+****PATIENT CREATE****
+**********************/
 
 router.post('/create', validateSession, (req, res) => {
 

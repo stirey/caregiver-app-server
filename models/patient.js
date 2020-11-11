@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         caregiverNotes: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false
         },
         owner: {
