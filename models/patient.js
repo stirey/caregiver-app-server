@@ -43,9 +43,15 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         owner: {
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER,
+            allownull: false
         }
-
+ 
     })
     return Patient
 }
+
+// Meals (breakfast, lunch, dinner)
+// possibly remove careEnd
+// make searchable by first and last name (possibly)
+
