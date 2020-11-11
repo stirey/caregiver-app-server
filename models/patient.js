@@ -5,6 +5,26 @@ module.exports= (sequelize, DataTypes) => {
             allowNull:false,
             unique: true
         },
+        preferredName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: false
+        },
+        gender: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: false
+        },
+        race: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: false
+        },
+        ethnicity: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: false
+        },
         age:{
             type:DataTypes.INTEGER,
             allowNull: false
@@ -21,15 +41,14 @@ module.exports= (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        careEnd: {
-            type: DataTypes.STRING,
+        caregiverNotes: {
+            type: DataTypes.TEXT,
             allowNull: false
         },
-        caregiverNotes: {
-            type: DataTypes.STRING,
-            allowNull: false
+        owner: {
+            type: DataTypes.INTEGER,
+            allowNull: true
         }
- 
     })
     return Patient
 }
