@@ -15,12 +15,14 @@ router.post('/create', validateSession, (req, res) => {
 
     const patientEntry = {
         name: req.body.patient.name,
-        // nickname: req.body.patient.nickname,
+        preferredName: req.body.patient.preferredName,
         age: req.body.patient.age,
+        gender: req.body.patient.gender,
+        race: req.body.patient.race,
+        ethnicity: req.body.patient.ethnicity,
         location: req.body.patient.location,
         medication: req.body.patient.medication,
         careStart: req.body.patient.careStart,
-        careEnd: req.body.patient.careEnd,
         caregiverNotes: req.body.patient.caregiverNotes,
         owner: req.user.id
     }
@@ -60,7 +62,7 @@ router.get('/mine', validateSession, (req, res) => {
 ***FIND PATIENT BY NAME***
 **************************/
 
-router.get('/search/:name', (req, res) => {
+router.get('/:name', (req, res) => {
 
     Patient.findOne({
         where: {
@@ -75,16 +77,20 @@ router.get('/search/:name', (req, res) => {
 ***UPDATE PATIENT BY NAME***
 ****************************/
 
-router.put('/update/:name', validateSession, (req, res) => {
+router.put('/:name', validateSession, (req, res) => {
 
     const updatePatientEntry = {
         name: req.body.patient.name,
+        preferredName: req.body.patient.preferredName,
         age: req.body.patient.age,
+        gender: req.body.patient.gender,
+        race: req.body.patient.race,
+        ethnicity: req.body.patient.ethnicity,
         location: req.body.patient.location,
         medication: req.body.patient.medication,
         careStart: req.body.patient.careStart,
-        careEnd: req.body.patient.careEnd,
         caregiverNotes: req.body.patient.caregiverNotes,
+        owner: req.user.id
     }
 
     const query = { where: { name: req.params.name } };
@@ -98,7 +104,7 @@ router.put('/update/:name', validateSession, (req, res) => {
 ***DELETE PATIENT BY ID***
 **************************/
 
-router.delete('/delete/:id', validateSession, async (req, res) => {
+router.delete('/:id', validateSession, async (req, res) => {
     try {
         const result = await Patient.destroy({
             where: { id: req.params.id }
