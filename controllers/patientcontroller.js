@@ -1,19 +1,18 @@
-
 const router = require('express').Router();
 
-
-const jwt= require('jsonwebtoken');
-const bcrypt= require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
 const validateSession = require('../middleware/validate-session');
+
 const Patient = require('../db').import('../models/patient')
 
-
-
 /*********************
-****Patient Create****
-***********************/
+****PATIENT CREATE****
+**********************/
+
 router.post('/create', validateSession, (req, res) => {
+
     const patientEntry = {
         name: req.body.patient.name,
         preferredName: req.body.patient.preferredName,
@@ -27,20 +26,18 @@ router.post('/create', validateSession, (req, res) => {
         caregiverNotes: req.body.patient.caregiverNotes,
         owner: req.user.id
     }
-        Patient.create(patientEntry)
-        
-        // .catch(err => res.status(500).json({error: err}))
-
+    Patient.create(patientEntry)
         .then(patient => {
-    
             res.json({
                 patient: patient,
                 message: "patient was created successfully",
             })
         })
+
         .then(patient => res.status(200).json(patient))
         .catch(err => res.status(500).send(err))
     });
+
 
 /*********************
 ***GET ALL PATIENTS***
@@ -68,7 +65,7 @@ router.get('/mine', validateSession, (req, res) => {
 ***FIND PATIENT BY NAME***
 **************************/
 
-router.get('/search/:name', (req, res) => {
+router.get('/:name', (req, res) => {
 
     Patient.findOne({
         where: {
@@ -83,16 +80,20 @@ router.get('/search/:name', (req, res) => {
 ***UPDATE PATIENT BY NAME***
 ****************************/
 
-router.put('/update/:name', validateSession, (req, res) => {
+router.put('/:name', validateSession, (req, res) => {
 
     const updatePatientEntry = {
         name: req.body.patient.name,
+        preferredName: req.body.patient.preferredName,
         age: req.body.patient.age,
+        gender: req.body.patient.gender,
+        race: req.body.patient.race,
+        ethnicity: req.body.patient.ethnicity,
         location: req.body.patient.location,
         medication: req.body.patient.medication,
         careStart: req.body.patient.careStart,
-        careEnd: req.body.patient.careEnd,
         caregiverNotes: req.body.patient.caregiverNotes,
+        owner: req.user.id
     }
 
     const query = { where: { name: req.params.name } };
