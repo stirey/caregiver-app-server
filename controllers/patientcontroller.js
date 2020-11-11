@@ -1,14 +1,8 @@
 
 const router = require('express').Router();
-
-
 const jwt= require('jsonwebtoken');
-// const bcrypt= require('bcryptjs');
-
 const validateSession = require('../middleware/validate-session');
 const Patient = require('../db').import('../models/patient')
-
-
 
 /*********************
 ****Patient Create****
@@ -28,12 +22,7 @@ router.post('/create', validateSession, (req, res) => {
         owner: req.user.id
     }
         Patient.create(patientEntry)
-        // .then(patient => res.status(200).json(patient))
-        // .catch(err => res.status(500).json({error: err}))
         .then(patient => {
-
-        // const token =jwt.sign({id:user.id}, process.env.JWT_SECRET,
-        //     {expiresIn: "30d"})
 
         res.json({
             patient: patient,
@@ -121,10 +110,6 @@ router.delete('/:id', validateSession, async (req, res) => {
         res.status(500).json({ error: err });
     }
 })
-
-
-    
-    
 
 
 module.exports = router;
