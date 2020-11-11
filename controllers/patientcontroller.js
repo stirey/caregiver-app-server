@@ -19,13 +19,13 @@ router.post('/create', validateSession, (req, res) => {
         age: req.body.patient.age,
         gender: req.body.patient.gender,
         race: req.body.patient.race,
-        ethnicity: req.body.patient.ethnicity,
         location: req.body.patient.location,
         medication: req.body.patient.medication,
         careStart: req.body.patient.careStart,
         caregiverNotes: req.body.patient.caregiverNotes,
         owner: req.user.id
     }
+    
     Patient.create(patientEntry)
         .then(patient => {
             res.json({
@@ -88,7 +88,6 @@ router.put('/:name', validateSession, (req, res) => {
         age: req.body.patient.age,
         gender: req.body.patient.gender,
         race: req.body.patient.race,
-        ethnicity: req.body.patient.ethnicity,
         location: req.body.patient.location,
         medication: req.body.patient.medication,
         careStart: req.body.patient.careStart,

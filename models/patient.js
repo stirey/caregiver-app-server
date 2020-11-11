@@ -1,8 +1,8 @@
-module.exports = (sequelize, DataTypes) => {
-    const Patient = sequelize.define('patient', {
-        name: {
+module.exports= (sequelize, DataTypes) => {
+    const Patient= sequelize.define('patient', {
+       name:{
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull:false,
             unique: true
         },
         preferredName: {
@@ -10,20 +10,18 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             unique: false
         },
-        age: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
         gender: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: false
         },
         race: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: false
         },
-        ethnicity: {
-            type: DataTypes.STRING,
+        age:{
+            type:DataTypes.INTEGER,
             allowNull: false
         },
         location: {
@@ -44,9 +42,8 @@ module.exports = (sequelize, DataTypes) => {
         },
         owner: {
             type: DataTypes.INTEGER,
-            allownull: false
+            allowNull: true
         }
- 
     })
     return Patient
 }
