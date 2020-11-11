@@ -45,7 +45,7 @@ router.get("/", (req, res) => {
 });
 
 /***************************
-***GET ENTRIES BY USER***
+***GET PATIENTS BY USER***
 ***************************/
 
 router.get('/mine', validateSession, (req, res) => {
