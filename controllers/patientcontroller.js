@@ -12,12 +12,12 @@ const Patient = require('../db').import('../models/patient')
 **********************/
 
 router.post('/create', validateSession, (req, res) => {
-
+console.log(req.body)
     const patientEntry = {
         name: req.body.patient.name,
         preferredName: req.body.patient.preferredName,
-        age: req.body.patient.age,
-        gender: req.body.patient.gender,
+        age: parseInt(req.body.patient.age),
+        birthSex: req.body.patient.birthSex,
         race: req.body.patient.race,
         location: req.body.patient.location,
         medication: req.body.patient.medication,
@@ -25,7 +25,7 @@ router.post('/create', validateSession, (req, res) => {
         caregiverNotes: req.body.patient.caregiverNotes,
         owner: req.user.id
     }
-    
+
     Patient.create(patientEntry)
         .then(patient => {
             res.json({
@@ -36,7 +36,7 @@ router.post('/create', validateSession, (req, res) => {
 
         .then(patient => res.status(200).json(patient))
         .catch(err => res.status(500).send(err))
-    });
+});
 
 
 /*********************
@@ -86,7 +86,7 @@ router.put('/:name', validateSession, (req, res) => {
         name: req.body.patient.name,
         preferredName: req.body.patient.preferredName,
         age: req.body.patient.age,
-        gender: req.body.patient.gender,
+        birthSex: req.body.patient.birthSex,
         race: req.body.patient.race,
         location: req.body.patient.location,
         medication: req.body.patient.medication,

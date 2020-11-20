@@ -1,11 +1,9 @@
-
 const router = require('express').Router();
 
 const User = require('../db').import('../models/user');
 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-
 
 /******************
 ****User Signup****
@@ -24,7 +22,7 @@ router.post('/create', (req, res) => {
 
             res.json({
                 user: user,
-                message: "user was created successfully",
+                message: "User successfully created",
                 sessionToken: token
             })
         })
@@ -44,8 +42,10 @@ router.post('/login', function (req, res) {
     })
         .then(function loginSuccess(user) {
             if (user) {
+
                 bcrypt.compare(req.body.user.password, user.password, function (err, matches) {
                     if (matches) {
+                        
                         let token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '30d' })
 
                         res.status(200).json({
@@ -65,6 +65,8 @@ router.post('/login', function (req, res) {
         })
         .catch(err => res.status(500).json({ error: err }))
 });
+
+
 
 
 module.exports = router;

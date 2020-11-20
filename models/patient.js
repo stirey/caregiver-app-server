@@ -3,22 +3,18 @@ module.exports= (sequelize, DataTypes) => {
        name:{
             type: DataTypes.STRING,
             allowNull:false,
-            unique: true
         },
         preferredName: {
             type: DataTypes.STRING,
-            allowNull: false,
-            unique: false
+            allowNull: true,
         },
-        gender: {
+        birthSex: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: false
         },
         race: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: false
         },
         age:{
             type:DataTypes.INTEGER,
@@ -49,6 +45,5 @@ module.exports= (sequelize, DataTypes) => {
 }
 
 // Meals (breakfast, lunch, dinner)
-// possibly remove careEnd
-// make searchable by first and last name (possibly)
+// Search by first and/or last name
 
