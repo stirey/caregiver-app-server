@@ -1,8 +1,10 @@
 
 const router = require('express').Router();
 const jwt= require('jsonwebtoken');
+// const { Sequelize } = require('sequelize/types');
 const validateSession = require('../middleware/validate-session');
 const Patient = require('../db').import('../models/patient')
+const {Op}=require ('sequelize');
 
 /*********************
 ****Patient Create****
@@ -12,9 +14,8 @@ router.post('/create', validateSession, (req, res) => {
         name: req.body.patient.name,
         preferredName: req.body.patient.preferredName,
         age: req.body.patient.age,
-        gender: req.body.patient.gender,
+        birthSex: req.body.patient.birthSex,
         race: req.body.patient.race,
-        ethnicity: req.body.patient.ethnicity,
         location: req.body.patient.location,
         medication: req.body.patient.medication,
         careStart: req.body.patient.careStart,
@@ -62,9 +63,11 @@ router.get("/mine", validateSession, (req, res) => {
 
 router.get('/:name', (req, res) => {
 
-    Patient.findOne({
+    Patient.findAll({
         where: {
-            name: req.params.name
+            name: {
+                [Op.iLike]:`%${req.params.name}%` //sequelize interprets % as sequences of 0 or more characters
+            }
         }
     })
         .then(patient => res.status(200).json(patient))
@@ -80,12 +83,15 @@ router.put('/:name', validateSession, (req, res) => {
 
     const updatePatientEntry = {
         name: req.body.patient.name,
+        preferredName: req.body.patient.preferredName,
         age: req.body.patient.age,
+        birthSex: req.body.patient.birthSex,
+        race: req.body.patient.race,
         location: req.body.patient.location,
         medication: req.body.patient.medication,
         careStart: req.body.patient.careStart,
-        careEnd: req.body.patient.careEnd,
         caregiverNotes: req.body.patient.caregiverNotes,
+        owner: req.user.id
     }
 
     const query = { where: { name: req.params.name } };
@@ -110,6 +116,9 @@ router.delete('/:id', validateSession, async (req, res) => {
         res.status(500).json({ error: err });
     }
 })
+
+
+
 
 
 module.exports = router;

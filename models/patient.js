@@ -3,24 +3,17 @@ module.exports= (sequelize, DataTypes) => {
        name:{
             type: DataTypes.STRING,
             allowNull:false,
-            unique: true
         },
         preferredName: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: false
         },
-        gender: {
+        birthSex: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: false
         },
         race: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: false
-        },
-        ethnicity: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: false
