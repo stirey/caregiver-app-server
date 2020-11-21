@@ -1,5 +1,7 @@
 const router = require('express').Router();
 
+const {Op} = require ('sequelize');
+
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
@@ -67,10 +69,11 @@ router.get('/mine', validateSession, (req, res) => {
 
 router.get('/:name', (req, res) => {
 
-    Patient.findOne({
+    Patient.findAll({
         where: {
-            name: req.params.name
-        }
+            name: {
+            [Op.iLike]:`%${req.params.name}%`
+        }}
     })
         .then(patient => res.status(200).json(patient))
         .catch(err => res.status(500).json({ error: err }))
@@ -85,7 +88,7 @@ router.put('/:name', validateSession, (req, res) => {
     const updatePatientEntry = {
         name: req.body.patient.name,
         preferredName: req.body.patient.preferredName,
-        age: req.body.patient.age,
+        age: parseInt(req.body.patient.age),
         birthSex: req.body.patient.birthSex,
         race: req.body.patient.race,
         location: req.body.patient.location,
