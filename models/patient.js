@@ -1,29 +1,23 @@
-module.exports = (sequelize, DataTypes) => {
-    const Patient = sequelize.define('patient', {
-        name: {
+module.exports= (sequelize, DataTypes) => {
+    const Patient= sequelize.define('patient', {
+       name:{
             type: DataTypes.STRING,
-            allowNull: false,
-            unique: true
+            allowNull:false,
         },
         preferredName: {
             type: DataTypes.STRING,
-            allowNull: false,
-            unique: false
+            allowNull: true,
         },
-        age: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
-        gender: {
+        birthSex: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
         },
         race: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
         },
-        ethnicity: {
-            type: DataTypes.STRING,
+        age:{
+            type:DataTypes.INTEGER,
             allowNull: false
         },
         location: {
@@ -44,14 +38,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         owner: {
             type: DataTypes.INTEGER,
-            allownull: false
+            allowNull: true
         }
- 
     })
     return Patient
 }
 
 // Meals (breakfast, lunch, dinner)
-// possibly remove careEnd
-// make searchable by first and last name (possibly)
-
+// Search by first and/or last name
