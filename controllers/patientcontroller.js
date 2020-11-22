@@ -1,5 +1,7 @@
 const router = require('express').Router();
 
+const {Op} = require ('sequelize');
+
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
@@ -12,20 +14,20 @@ const Patient = require('../db').import('../models/patient')
 **********************/
 
 router.post('/create', validateSession, (req, res) => {
-
+console.log(req.body)
     const patientEntry = {
         name: req.body.patient.name,
         preferredName: req.body.patient.preferredName,
-        age: req.body.patient.age,
-        gender: req.body.patient.gender,
+        age: parseInt(req.body.patient.age),
+        birthSex: req.body.patient.birthSex,
         race: req.body.patient.race,
-        ethnicity: req.body.patient.ethnicity,
         location: req.body.patient.location,
         medication: req.body.patient.medication,
         careStart: req.body.patient.careStart,
         caregiverNotes: req.body.patient.caregiverNotes,
         owner: req.user.id
     }
+
     Patient.create(patientEntry)
         .then(patient => {
             res.json({
@@ -36,7 +38,7 @@ router.post('/create', validateSession, (req, res) => {
 
         .then(patient => res.status(200).json(patient))
         .catch(err => res.status(500).send(err))
-    });
+});
 
 
 /*********************
@@ -67,10 +69,11 @@ router.get('/mine', validateSession, (req, res) => {
 
 router.get('/:name', (req, res) => {
 
-    Patient.findOne({
+    Patient.findAll({
         where: {
-            name: req.params.name
-        }
+            name: {
+            [Op.iLike]:`%${req.params.name}%`
+        }}
     })
         .then(patient => res.status(200).json(patient))
         .catch(err => res.status(500).json({ error: err }))
@@ -85,10 +88,9 @@ router.put('/:name', validateSession, (req, res) => {
     const updatePatientEntry = {
         name: req.body.patient.name,
         preferredName: req.body.patient.preferredName,
-        age: req.body.patient.age,
-        gender: req.body.patient.gender,
+        age: parseInt(req.body.patient.age),
+        birthSex: req.body.patient.birthSex,
         race: req.body.patient.race,
-        ethnicity: req.body.patient.ethnicity,
         location: req.body.patient.location,
         medication: req.body.patient.medication,
         careStart: req.body.patient.careStart,
