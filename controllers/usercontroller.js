@@ -13,8 +13,8 @@ router.post('/create', (req, res) => {
     User.create({
         email:req.body.user.email,
         password: bcrypt.hashSync(req.body.user.password, 12)
- 
     })
+
     .then(user =>{
         const token = jwt.sign({id:user.id}, process.env.JWT_SECRET, {expiresIn: "30d"})
  

@@ -77,7 +77,7 @@ router.get('/:name', (req, res) => {
 
 /*********************************
 ***UPDATE PATIENT BY NAME*********
-**********************************/
+**********************************/ 
 
 router.put('/:name', validateSession, (req, res) => {
 
