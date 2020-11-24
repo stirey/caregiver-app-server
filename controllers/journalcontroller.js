@@ -5,19 +5,20 @@ const bcrypt = require('bcryptjs');
 
 const validateSession = require('../middleware/validate-session');
 
+// Import the journal model through db.js and store it in the Journal variable.
 const Journal = require('../db').import('../models/journal')
-
-// router.get('/practice', validateSession, function (req, res) {
-//     res.send("This is a practice route!")
-// });
 
 /*********************
 ****JOURNAL CREATE****
 **********************/
 
+//Use the router object and access the .post() method
+//Etablish path for this method with a subroute
+//Call validateSession from the middleware function
 router.post('/create', validateSession, (req, res) => {
     console.log(req.body)
-    const journalEntry = {
+    const journalEntry = { //The variable of journalEntry is an object and 'const' means the contents of this variable cannot be changed. (Values can be changed based on user input.)
+    // The following lines come from the journal object in the body from the request. 
         patient: req.body.journal.patient,
         journalDate: req.body.journal.journalDate,
         medicationTime: req.body.journal.medicationTime,
@@ -28,7 +29,7 @@ router.post('/create', validateSession, (req, res) => {
         owner: req.user.id
     }
 
-    Journal.create(journalEntry)
+    Journal.create(journalEntry) //Utilize the Journal variable to access the journal model. .create() is a Sequelize method which will create an instance of the Journal model and send the journalEntry object to the database. 
         .then(journal => {
             res.json({
                 journal: journal,
@@ -36,8 +37,8 @@ router.post('/create', validateSession, (req, res) => {
             })
         })
 
-        .then(journal => res.status(200).json(journal))
-        .catch(err => res.status(500).send(err))
+        .then(journal => res.status(200).json(journal)) // Callback function to run if update is successful and return data entered. .then() captures the promise once resolved and sends a message and the JSON patient entry.
+        .catch(err => res.status(500).send(err)) // Utilize the promise rejector method of .catch() to capture any errors
 });
 
 /* GET JOURNALS BY PATIENT */
