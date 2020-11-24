@@ -7,8 +7,14 @@ module.exports = (sequelize, DataTypes) => {
         },
         password: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                len: {
+                    notEmpty: true,
+                    len: [6, Infinity]
+                }}
         },
     })
+
     return User;
 }
