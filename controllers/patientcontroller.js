@@ -2,7 +2,12 @@ const router = require('express').Router();
 
 const {Op} = require ('sequelize');
 
+
 const validateSession = require('../middleware/validate-session');
+
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+
 
 // Import the patient model through db.js and store it in the Patient variable.
 const Patient = require('../db').import('../models/patient')

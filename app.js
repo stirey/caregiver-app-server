@@ -13,7 +13,7 @@ const journal = require('./controllers/journalcontroller')
 
 
 app.use(express.json());
-app.use(require('./middleware/headers'));
+app.use(require('./middleWare/headers'));
 
 
 /* MODELS */
