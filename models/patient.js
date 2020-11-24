@@ -46,3 +46,4 @@ module.exports= (sequelize, DataTypes) => {
 
 // Meals (breakfast, lunch, dinner)
 // Search by first and/or last name
+
