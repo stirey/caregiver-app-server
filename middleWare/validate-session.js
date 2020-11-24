@@ -13,6 +13,8 @@ module.exports = async (req, res, next) => {
         const decoded = await jwt.verify(token, process.env.JWT_SECRET)
 
         const user = await User.findOne({ where: { id: decoded.id } });
+            //User is imported from models
+            //findOne function searches for 
 
         if (!user) throw new Error('no user found');
 

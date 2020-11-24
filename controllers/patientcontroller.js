@@ -2,9 +2,6 @@ const router = require('express').Router();
 
 const {Op} = require ('sequelize');
 
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-
 const validateSession = require('../middleware/validate-session');
 
 const Patient = require('../db').import('../models/patient')
