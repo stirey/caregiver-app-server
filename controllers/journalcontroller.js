@@ -38,6 +38,19 @@ router.post('/create', validateSession, (req, res) => {
 
         .then(journal => res.status(200).json(journal))
         .catch(err => res.status(500).send(err))
-});
+})
+/* GET JOURNALS BY PATIENT */
+
+router.get('/:id', validateSession, (req, res) => {
+    console.log(req.body)
+    Journal.findAll({
+        where: {
+            patient: req.params.id
+        }
+    })
+    .then(journal => res.json({
+        journal: journal
+    }))
+})
 
 module.exports = router;
